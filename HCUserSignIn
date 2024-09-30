@@ -1,0 +1,137 @@
+using System;
+using System.Collections.Generic;
+
+
+namespace inheritanceandoverridingetc{
+
+        public interface user_interface{
+                public string username{ get; set; }
+                bool passwordFlag(string password);
+                public string role { get; }
+
+        }
+
+        public class adopter : user_interface{
+            public string username{ get; set; }
+            private string password{ get; set; }
+            public string role { get; } = "adopter";
+
+            public adopter(string username, string password)
+            {
+                this.username = username;
+                this.password = password;
+            }
+
+            public bool passwordFlag(string check){
+                return password == check;
+            }
+
+        }
+
+         public class volunteer : user_interface{
+            public string username{ get; set; }
+            private string password{ get; set; }
+            public string role { get; } = "volunteer";
+
+            public volunteer(string username, string password)
+            {
+                this.username = username;
+                this.password = password;
+            }
+
+            public bool passwordFlag(string check){
+                return password == check;
+            }
+
+        }
+
+         public class foster : user_interface{
+            public string username{ get; set; }
+            private string password{ get; set; }
+            public string role { get; } = "foster";
+            
+            public foster(string username, string password)
+            {
+                this.username = username;
+                this.password = password;
+            }
+
+            public bool passwordFlag(string check){
+                return password == check;
+            }
+
+        }
+
+         public class unregistered : user_interface{
+            public string username{ get; set; }
+            private string password{ get; set; }
+            public string role { get; } = "unregistered";
+
+            public unregistered(string username, string password)
+            {
+                this.username = username;
+                this.password = password;
+            }
+
+            public bool passwordFlag(string check){
+                return password == check;
+            }
+        }
+        
+        
+
+        class program{
+
+            //make this as a user sign in program insert into DB
+
+            //DB Connection
+
+            var dbconnection = new DatabaseConnection();
+            dbconnection.Connect();
+
+            //change this to entries in DB
+            static List<user_interface> users = new List<user_interface>
+            {
+                new adopter("griffinme", "password"),
+                new adopter ("colonh", "password")
+            };
+
+            static bool sign_in(string username, string password){
+                foreach (var user in users){
+                    if(user.username.Equals(username, StringComparison.OrdinalIgnoreCase) && user.passwordFlag(password)){
+                        Console.WriteLine("username: " + username);
+                        Console.WriteLine("password: " + " ");
+                        Console.WriteLine("role: " + user.role);
+
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            static void Main(string[] args){
+                
+                Console.WriteLine("Please sign in");
+                Console.Write("Enter your username: ");
+                string username_input = Console.ReadLine();
+                Console.Write("Enter your password: ");
+                string password_input = Console.ReadLine();
+
+                bool user = sign_in(username_input, password_input);
+                if (user){
+                    Console.WriteLine("Sign in Successful");
+                    
+                }
+                else{
+                    Console.WriteLine("Sign in unsuccessful");
+                }
+            }
+
+        }
+        
+
+
+
+
+
+}
