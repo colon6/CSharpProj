@@ -1,0 +1,28 @@
+//DatabaseConnetion
+
+using System;
+using MySql.Data.MySqlClient
+
+
+namespace ConsoleApp1;
+
+public class DatabaseConnetion
+{
+    private string connectionString = "Server=localhost;Database=DATABASENAME;User ID=root;";
+
+    public void Connect(){
+        using (MySqlConnection connect = new MySqlConnection(connectionString)){
+            try{
+                connect.Open();
+                ConsoleApp1.WriteLine("Connection Successful!");
+            }
+            catch (MySqlException fail){
+                ConsoleApp1.Writeline("Connection Unsuccessful :(");
+            }
+        }
+
+    }
+
+
+
+}
